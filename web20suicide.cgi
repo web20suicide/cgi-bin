@@ -22,7 +22,7 @@ dbconn = settings.connect_db()
 cursor = dbconn.cursor(MySQLdb.cursors.DictCursor)
 #*******************************************************
 
-f = Figlet(font='slant',zipfile='/home/killer/pyfiglet-0.4/fonts.zip') # or zipfile=PATH
+f = Figlet(font='slant',zipfile='./fonts.zip') # or zipfile=PATH
 
 def figlet_counter(f):
 	print f.renderText("3")

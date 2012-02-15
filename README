@@ -85,12 +85,14 @@ to execute this file AGAIN!!!)
 
 Please note that /usr/lib/cgi-bin is under version controlling using GITHUB. 
 If you've done major contributions and/or improvements please commit your 
-changes and mind conflicting stuff. Don't screw things up!
-The password for pushing changes can be requested from killer@moddr.net
+changes and mind conflicting stuff. Don't screw things up! Everyone is 
+able to push/pull!
 
 The GIT repository is hosted at http://www.github.com
 
-Software repository is: https://github.com/web20suicide/w2sm
+Software repositories are for: 
+/var/www/ 				https://github.com/web20suicide/w2sm
+/usr/lib/cgi-bin/	https://github.com/web20suicide/cgi-bin
 
 Once a user completes the form on the website, all his/her information is 
 temporarily stored in a mySQL database (/usr/lib/cgi-bin/web20_dump.cgi).

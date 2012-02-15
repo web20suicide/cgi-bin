@@ -3,6 +3,12 @@ import cgi,os,sys,urllib
 import settings, MySQLdb
 import random,time
 import subprocess
+import logging
+from logging import handlers, Formatter
+
+log_filename = "/tmp/suicide_startuplog.txt" 
+logging.debug(log_filename)
+logging.info("**********************************************************************************")
 
 # connect db (settings.py)
 dbconn = settings.connect_db()
@@ -57,6 +63,4 @@ launch_selenium= subprocess.Popen(cmd4, shell=True, stdout=subprocess.PIPE)
 # start python suicide script (sys.argv=job_id 1-9) in xterm (sudo -u killer -H sh -c is needed because xauth needs to be explictily started by killer user!)
 cmd3 = """DISPLAY=:0 xterm -geometry 170x36+0+0 -e "python /usr/lib/cgi-bin/web20suicide.cgi %s 2> /var/www/tmp/error_python%s.log" &""" %(job_id,job_id)
 launch_python = subprocess.Popen(cmd3, shell=True, stdout=subprocess.PIPE)
-
-
 print "</html>"
