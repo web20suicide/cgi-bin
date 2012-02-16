@@ -107,24 +107,21 @@ def quit_log(vnc):
 # selenium functions
 def login_process(name, password,website,port,vnc,f,lastwords,session_id):
 	try:
-		#sel = selenium("localhost", port, "*firefoxproxy", website)
-		# firefoxproxy doesn't work if selenium-rc is called with forcedBrowserMOde
-		#sel = selenium("localhost", port, "*firefoxproxy", website)
-		sel = selenium("localhost", port, "*chrome", website)
+		sel = selenium("localhost", port, "firefox", website)
 		sel.start()
 		if (website == "http://www.facebook.com"):
 			website = "https://login.facebook.com/login.php"
-		sel.open_window(website,"koobecaf")
-		sel.select_window("koobecaf")
+		sel.open_window(website,"noodle")
+		sel.select_window("noodle")
 		sel.set_timeout(120000)
 	except:
 		logging.error("selenium login failed")
 		quit_log(vnc)
 	time.sleep(5)
 	figlet_counter(f)
-	cmd2 = "for i in `ls -d /tmp/custom*`; do cp /home/killer/.mozilla/firefox/ze0ym9mm.77777/cert8.db /home/killer/.mozilla/firefox/ze0ym9mm.77777/cert_override.txt $i;done"
-	override_db = subprocess.Popen(cmd2, shell=True, stdout=subprocess.PIPE)
-	sel.window_maximize()
+#cmd2 = "for i in `ls -d /tmp/custom*`; do cp /home/killer/.mozilla/firefox/ze0ym9mm.77777/cert8.db /home/killer/.mozilla/firefox/ze0ym9mm.77777/cert_override.txt $i;done"
+#	override_db = subprocess.Popen(cmd2, shell=True, stdout=subprocess.PIPE)
+#	sel.window_maximize()
 	# go fullscreen by simulating F11 button press
 	sel.key_press("//","\\122")
 	#sel.refresh()
@@ -182,27 +179,22 @@ def login_process(name, password,website,port,vnc,f,lastwords,session_id):
 		try:
 			random_wait = random.randint(1,4)
 			time.sleep(random_wait)
-			sel.click("topnav")
 			random_wait = random.randint(1,4)
-			time.sleep(random_wait)
-			sel.click("//div[@id='topnav']/a/span")
+			sel.type("xpath=(//input[@name='session[username_or_email]'])[2]", name) 
 			random_wait = random.randint(1,2)
 			time.sleep(random_wait)
-			sel.type("username", name)
-			random_wait = random.randint(1,2)
+			sel.type("xpath=(//input[@name='session[password]'])[2]", password)
+			random_wait = random.randint(3,5)
 			time.sleep(random_wait)
-			sel.type("password", password)
-			random_wait = random.randint(1,2)
+			sel.click("//input[@value='Sign in']")
 			time.sleep(random_wait)
-			sel.click("signin_submit")
 			random_wait = random.randint(6,10)
 			time.sleep(random_wait)
 		except:
-			sel.type("username", "frescogamba")
-			sel.click("password")
-			sel.type("password", "trollface")
-			sel.click("signin_submit")
-			sel.wait_for_page_to_load("30000")
+			tearDown(sel)
+			logging.warning("something wrong with login procedure")
+			logging.warning("sending login warning to: " + name)
+			kill_all()
 			
 		if (sel.is_element_present("status")) != 1:
 			logging.warning("[failed] form id=statusMoodEditor is now present. shutting down!")
@@ -332,8 +324,9 @@ while 1:
 			#######################################################
 			if(row['command'] == "facebook"):
 				print "*** getting rid of your friends... ***"
+				login_process(name, password,website,port,vnc,f,lastwords,session_id)
 				time.sleep(4) # don't hurry
-				suicide_facebook.changePassword(sel,password,newpassword)
+#suicide_facebook.changePassword(sel,password,newpassword)
 				logging.info("[ok] changed password")
 				amount,user_id = suicide_facebook.getInfo(sel,lastwords,command,name,password)
 				suicide_facebook.unNotify(sel)
