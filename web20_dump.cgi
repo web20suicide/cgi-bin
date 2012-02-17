@@ -56,7 +56,7 @@ cursor.execute(q, (command,data,job_id,))
 
 # start selenium server on port 444x (1-9) 
 seleniumport = "444" + job_id
-cmd4 = """sudo -u killer -H sh -c 'DISPLAY=:0 xterm -geometry 170x24+0+493 -e "sh /usr/lib/cgi-bin/start_selenium.sh %s 2> /var/www/tmp/selenium%s.log"&'"""%(seleniumport,job_id)
+cmd4 = """sudo -u killer -H sh -c 'DISPLAY=:0 xterm -geometry 170x24+0+524 -e "sh /usr/lib/cgi-bin/start_selenium.sh %s 2> /var/www/tmp/selenium%s.log"&'"""%(seleniumport,job_id)
 launch_selenium= subprocess.Popen(cmd4, shell=True, stdout=subprocess.PIPE)
 
 
