@@ -1,3 +1,4 @@
 selenium-server1_0_3.jar
 selenium-server.jar
 selenium-server-standalone-2.19.0.jar
+*.pyc
