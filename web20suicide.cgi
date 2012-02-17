@@ -318,7 +318,7 @@ while 1:
 			print ""
 			passwordtxt = "password is *******"
 			print f.renderText(passwordtxt)
-
+			time.sleep(8)
 			######################################################
 			# FACEBOOK
 			#######################################################

@@ -56,11 +56,11 @@ cursor.execute(q, (command,data,job_id,))
 
 # start selenium server on port 444x (1-9) 
 seleniumport = "444" + job_id
-cmd4 = """sudo -u killer -H sh -c 'DISPLAY=:0 xterm -geometry 170x24+0+463 -e "sh /usr/lib/cgi-bin/start_selenium.sh %s 2> /var/www/tmp/error_selenium%s.log"&'"""%(seleniumport,job_id)
+cmd4 = """sudo -u killer -H sh -c 'DISPLAY=:0 xterm -geometry 170x24+0+493 -e "sh /usr/lib/cgi-bin/start_selenium.sh %s 2> /var/www/tmp/selenium%s.log"&'"""%(seleniumport,job_id)
 launch_selenium= subprocess.Popen(cmd4, shell=True, stdout=subprocess.PIPE)
 
 
 # start python suicide script (sys.argv=job_id 1-9) in xterm (sudo -u killer -H sh -c is needed because xauth needs to be explictily started by killer user!)
-cmd3 = """DISPLAY=:0 xterm -geometry 170x36+0+0 -e "python /usr/lib/cgi-bin/web20suicide.cgi %s 2> /var/www/tmp/error_python%s.log" &""" %(job_id,job_id)
+cmd3 = """DISPLAY=:0 xterm -geometry 170x36+0+0 -e "python /usr/lib/cgi-bin/web20suicide.cgi %s 2> /var/www/tmp/python%s.log" &""" %(job_id,job_id)
 launch_python = subprocess.Popen(cmd3, shell=True, stdout=subprocess.PIPE)
 print "</html>"
