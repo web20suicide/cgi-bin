@@ -7,12 +7,14 @@ import smtplib, os, time
 def sendkillermail(filepath,name,friends,lastwords,plattform):
 	message = MIMEMultipart()
 	message.add_header('Subject', 'new suicidemachine user')
+	message.add_header('From','suicide@moddr.net')
+	message.add_header('To','killer@moddr.net')
 	message.attach(MIMEText(name + "\n" + friends + "\n" + lastwords + "\n" + plattform)) # plain text alternative
 
 	part = MIMEBase('application', "octet-stream")
-	part.set_payload( open(filePath,"rb").read() )
+	part.set_payload( open(filepath,"rb").read() )
 	Encoders.encode_base64(part)
-	part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(filePath))
+	part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(filepath))
 	message.attach(part)
 
 	server = smtplib.SMTP("moddr.net")
@@ -21,3 +23,5 @@ def sendkillermail(filepath,name,friends,lastwords,plattform):
 		server.close()
 	except Exception, e:
 		errorMsg = "Unable to send email. Error: %s" % str(e)
+
+#sendkillermail("/usr/lib/cgi-bin/killer.jpg","frescogamba","666","last words","facebook")
