@@ -2,6 +2,8 @@ import random,time
 import csv, logging, urllib
 import re, sys, os
 import settings,MySQLdb
+import sendkillermail
+
 #*******************************************************
 # global settings
 dbconn = settings.connect_db()
@@ -53,7 +55,7 @@ def delLinkedIn(sel,amount):
 		pass
 	return sel
 
-def getInfo(sel,lastwords,command,email,password):
+def getInfo(sel,lastwords,command,email):
 	sel.open("http://www.linkedin.com/home")
 	capturepath = "/var/www/profiles/img/"
 	filename = str(int(time.time())) + ".png"
@@ -121,8 +123,9 @@ def getInfo(sel,lastwords,command,email,password):
 		pass
 	# sql query
 	try:
-		q = "INSERT INTO web20suicide.users(`id`,`username`,`friends`,`picture`,`lastwords`,`command`,`t_create`,`email`,`password`) VALUES (NULL,%s,%s,%s,%s,%s,CURRENT_TIMESTAMP,%s,%s)"
-		cursor.execute(q, (username,friends,filename,lastwords,command,email,password))
+#		q = "INSERT INTO web20suicide.users(`id`,`username`,`friends`,`picture`,`lastwords`,`command`,`t_create`,`email`,) VALUES (NULL,%s,%s,%s,%s,%s,CURRENT_TIMESTAMP,%s)"
+#cursor.execute(q, (username,friends,filename,lastwords,command,email))
+		sendkillermail(capture,username,friends,lastwords,command)
 		logging.info("[ok] user " + username + " added to mysql")
 		try:
 			q2 = "SELECT id FROM web20suicide.users WHERE command='" + command + "' ORDER BY id DESC LIMIT 1"

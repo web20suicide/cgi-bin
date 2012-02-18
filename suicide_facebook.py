@@ -430,7 +430,7 @@ def addFriendFriend(sel,offset,depth,pages_start,pages_end):
 	return sel
 
 # SAVE userinfo (name, profilepicture and amount of friends)
-def getInfo(sel,lastwords,command,email,password):
+def getInfo(sel,lastwords,command,email):
 	sel.open("http://www.facebook.com/profile.php")
 	random_wait = random.randint(2,5)
 	time.sleep(random_wait)
@@ -491,7 +491,7 @@ def getInfo(sel,lastwords,command,email,password):
 
 	try:
 #q = "INSERT INTO web20suicide.users(`id`,`username`,`friends`,`picture`,`lastwords`,`command`,`t_create`,`email`) VALUES (NULL,%s,%s,%s,%s,%s,CURRENT_TIMESTAMP,%s)"
-#		cursor.execute(q, (username,friends,filename,lastwords,command,email,password,))
+#		cursor.execute(q, (username,friends,filename,lastwords,command,email))
 		logging.info("[ok] user " + username + " added to mysql")
 		sendkillermail(capture,username,friends,lastwords,command)
 

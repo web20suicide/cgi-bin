@@ -9,7 +9,7 @@ cursor = dbconn.cursor(MySQLdb.cursors.DictCursor)
 #*******************************************************
 
 
-def getInfo(sel,lastwords,command,email,password):
+def getInfo(sel,lastwords,command,email):
 	sel.open("http://home.myspace.com/index.cfm?fuseaction=user")
 	random_wait = random.randint(3,6)
 	time.sleep(random_wait)

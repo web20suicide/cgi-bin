@@ -10,7 +10,7 @@ dbconn = settings.connect_db()
 cursor = dbconn.cursor(MySQLdb.cursors.DictCursor)
 #*******************************************************
 
-def getInfo(sel,lastwords,command,email,password):
+def getInfo(sel,lastwords,command,email):
 	sel.open("http://www.twitter.com/home")
 	time.sleep(5)
 	capturepath = "/var/www/profiles/img/"
